@@ -1,6 +1,7 @@
 package bancodados.cadastroaluno;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,16 +42,17 @@ public class CadastroAlunoControle extends HttpServlet {
 			}
 		} else if (acao.equals("Alterar")) {
 			if (!matricula.equals("")) {
-				aluno.alterar(matricula, nome, fone, cpf);
+				aluno.alterar();
 			}
 		} else if (acao.equals("Remover")) {
 			if (!matricula.equals("")) {
-				aluno.remover(matricula);
+				aluno.remover();
 			}
-		} else if (acao.equals("Pesquisar")) {
-			aluno.pesquisar(matricula);
 		}
-
+		
+		List<Aluno> alunos = aluno.listar();
+		req.setAttribute("alunos", alunos);
+		
 		req.setAttribute("aluno", aluno); // Passando um objeto para o JSP.
 
 		// Chamar o JSP apenas para mostrar o resultado.

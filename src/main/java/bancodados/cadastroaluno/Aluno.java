@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Aluno {
 	private String matricula;
-	private String url = "jdbc:derby:banco-de-teste;create=true";
-	private Connection conn;
+	private static String url = "jdbc:derby:banco-de-teste;create=true";
 
 	public String getMatricula() {
 		return matricula;
@@ -51,7 +52,7 @@ public class Aluno {
 	public void incluir() {
 		try {
 			// Obtém a conexão.
-			conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(url);
 			// Cria a sentença SQL.
 			String sql = "insert into aluno (matricula, nome, fone, cpf) values (?, ?, ?, ?)";
 			// Obtém referência para uma sentença SQL.
@@ -72,8 +73,7 @@ public class Aluno {
 		}
 	}
 
-	public void alterar(String matricula2, String nome2, String fone2,
-			String cpf2) {
+	public void alterar() {
 		try {
 			// Obtém a conexão.
 			Connection conn = DriverManager.getConnection(url);
@@ -97,13 +97,13 @@ public class Aluno {
 		}
 	}
 
-	public void remover(String matricula2) {
+	public void remover() {
 		try {
-			conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(url);
 			String sql = "delete from aluno where matricula=?";
 			// Obtém referência para uma sentença SQL.
 			PreparedStatement prepareStatement = conn.prepareStatement(sql);
-			prepareStatement.setString(1, matricula2);
+			prepareStatement.setString(1, matricula);
 			// Executa a instrução SQL.
 			prepareStatement.executeUpdate();
 			prepareStatement.close();
@@ -113,27 +113,23 @@ public class Aluno {
 		}
 	}
 
-	public void pesquisar(String matricula2) {
+	public static List<Aluno> listar() {
+		List<Aluno> alunos = new ArrayList<Aluno>();
 		try {
-			conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(url);
 			String sql;
 			PreparedStatement prepareStatement;
-			if (matricula2.equals("")) {
-				sql = "select * from aluno order by matricula";
-				prepareStatement = conn.prepareStatement(sql);
-			} else {
-				sql = "select * from aluno where matricula=? order by matricula";
-				prepareStatement = conn.prepareStatement(sql);
-				prepareStatement.setString(1, matricula2);
-			}
-			// Obtém referência para uma sentença SQL.
-			
-			// Executa a instrução SQL.
+			sql = "select * from aluno order by matricula";
+			prepareStatement = conn.prepareStatement(sql);
 			ResultSet rs = prepareStatement.executeQuery();
-			setMatricula("<br>");
 			while (rs.next()) {
-				matricula += rs.getString(1) + " - " + rs.getString(2) + " - "
-						+ rs.getString(3) + " - " + rs.getString(4) + "<br>";
+				Aluno aluno = new Aluno();
+				aluno.setMatricula(rs.getString(1));
+				aluno.setNome(rs.getString(2));
+				aluno.setFone(rs.getString(3));
+				aluno.setCpf(rs.getString(4));
+
+				alunos.add(aluno);
 			}
 			rs.close();
 			prepareStatement.close();
@@ -141,6 +137,6 @@ public class Aluno {
 			// Para repassar a exceção para o container tratar.
 			throw new RuntimeException(e);
 		}
-
+		return alunos;
 	}
 }

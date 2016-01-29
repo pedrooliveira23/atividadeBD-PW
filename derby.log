@@ -1,19 +1,19 @@
 ----------------------------------------------------------------
-Thu Jan 28 21:03:38 BRST 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0152-8a7a-5388-000005e304f0 
-on database directory /home/pedro/workspace/AtividadeBD-PW/banco-de-teste with class loader WebappClassLoader
+Fri Jan 29 20:35:06 BRST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0152-8f86-8f7b-000003d80210 
+on database directory /home/alunoinf/git/atividadeBD-PW/banco-de-teste with class loader WebappClassLoader
   context: /AtividadeBD-PW
   delegate: false
   repositories:
 ----------> Parent Classloader:
-ClassRealm[plugin>org.apache.tomcat.maven:tomcat7-maven-plugin:2.2, parent: sun.misc.Launcher$AppClassLoader@11be650f]
+ClassRealm[plugin>org.apache.tomcat.maven:tomcat7-maven-plugin:2.2, parent: sun.misc.Launcher$AppClassLoader@713c817]
  
-Loaded from file:/home/pedro/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+Loaded from file:/home/alunoinf/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_91-b02
-user.dir=/home/pedro/workspace/AtividadeBD-PW
+java.runtime.version=1.7.0_51-b13
+user.dir=/home/alunoinf/git/atividadeBD-PW
 os.name=Linux
 os.arch=amd64
-os.version=3.16.0-38-generic
+os.version=2.6.32-358.el6.x86_64
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

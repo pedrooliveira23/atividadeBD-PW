@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page import="bancodados.cadastroaluno.Aluno"%>
+<%@page import="java.util.List"%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -27,37 +29,35 @@
 						<h3 class="panel-title">Cadastro de Aluno</h3>
 					</div>
 					<div class="panel-body">
+						<%
+							//Obtendo a variável definida no servlet.
+							bancodados.cadastroaluno.Aluno aluno = (bancodados.cadastroaluno.Aluno) request
+									.getAttribute("aluno");%>
 						<form role="form">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="Matrícula"
-										name="matricula" type="text">
+										name="matricula" type="text" value="<%=aluno.getMatricula()%>" s>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Nome" name="nome"
-										type="text"">
+										type="text" value="<%=aluno.getNome()%>">
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Fone" name="fone"
-										type="text">
+										type="text" value="<%=aluno.getFone()%>">
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="CPF" name="cpf"
-										type="text">
+										type="text" value="<%=aluno.getCpf()%>">
 								</div>
 								<input type="submit" class="btn btn-sm btn-success" name="acao"
-									value="Pesquisar"> <input type="submit"
-									class="btn btn-sm btn-success" name="acao" value="Incluir">
-								<input type="submit" class="btn btn-sm btn-success" name="acao"
-									value="Alterar"> <input type="submit"
-									class="btn btn-sm btn-success" name="acao" value="Remover">
+									value="Incluir"> <input type="submit"
+									class="btn btn-sm btn-success" name="acao" value="Alterar">
 							</fieldset>
 						</form>
 						<br>
 						<%
-							//Obtendo a variável definida no servlet.
-							bancodados.cadastroaluno.Aluno aluno = (bancodados.cadastroaluno.Aluno) request
-									.getAttribute("aluno");
 							//Se parâmetros inválidos, ...
 							if (aluno.getMatricula() == null
 									|| aluno.getMatricula().trim().equals("")) {
@@ -77,6 +77,38 @@
 							}
 						%>
 						<br>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Matrícula</th>
+									<th>Nome</th>
+									<th>Fone</th>
+									<th>CPF</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									List<Aluno> alunos = (List<Aluno>) request.getAttribute("alunos");
+
+									if (alunos != null && !alunos.isEmpty()) {
+										for (Aluno a : alunos) {
+								%>
+								<tr>
+									<th><%=a.getMatricula()%></th>
+									<td><%=a.getNome()%></td>
+									<td><%=a.getFone()%></td>
+									<td><%=a.getCpf()%></td>
+									<td><a href="?matricula=<%=a.getMatricula()%>&nome=<%=a.getNome()%>&fone=<%=a.getFone()%>&cpf=<%=a.getCpf()%>">Alterar</a></td>
+									<td><a href="?matricula=<%=a.getMatricula()%>&nome=<%=a.getNome()%>&fone=<%=a.getFone()%>&cpf=<%=a.getCpf()%>&acao=Remover">Excluir</a></td>
+								</tr>
+								<%
+									}
+									}
+								%>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
